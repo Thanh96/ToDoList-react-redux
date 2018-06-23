@@ -1,0 +1,51 @@
+
+.App {
+  margin-top: 50px;
+  h1 {
+    text-align: center;
+  }
+  .buttonAdd {
+    margin-bottom :20px;
+  }
+  .control {
+    margin-bottom: 20px;
+  }
+}
+.row {
+  margin: 0!important;
+}
+ul {
+  li {
+    &:after {
+      display: none;
+      content: "";
+      font-weight: bold;
+      float: right;
+      font-size: 15px;
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background-color: black;
+    }
+    &:hover {
+      &:after {
+        display: inline-table;
+      }
+    }
+  }
+}
+.addNew {
+  .card {
+    font-weight: bold;
+    .card-title {
+      color: forestgreen;
+      background-color: antiquewhite;
+      span {
+        float: right;
+        font-size: 17px;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}

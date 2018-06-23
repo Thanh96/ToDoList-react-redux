@@ -1,0 +1,37 @@
+.App {
+  margin-top: 50px; }
+  .App h1 {
+    text-align: center; }
+  .App .buttonAdd {
+    margin-bottom: 20px; }
+  .App .control {
+    margin-bottom: 20px; }
+
+.row {
+  margin: 0 !important; }
+
+ul li:after {
+  display: none;
+  content: "";
+  font-weight: bold;
+  float: right;
+  font-size: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: black; }
+ul li:hover:after {
+  display: inline-table; }
+
+.addNew .card {
+  font-weight: bold; }
+  .addNew .card .card-title {
+    color: forestgreen;
+    background-color: antiquewhite; }
+    .addNew .card .card-title span {
+      float: right;
+      font-size: 17px;
+      margin-right: 5px;
+      cursor: pointer; }
+
+/*# sourceMappingURL=App.css.map */
