@@ -24,7 +24,7 @@ class ListJob extends Component {
 
   render() {
     let listTask = this.props.listTask;
-    console.log(listTask);
+
     let itemTask = listTask.map((value,key) => {
       return <ItemJob
                 itemTask={value}
