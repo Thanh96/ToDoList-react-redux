@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import _ from 'lodash';
+import * as action from './action/index';
 
 import AddNew from './components/addNew';
 import Control from './components/control';
@@ -12,7 +13,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showAdd: false,
       editJob: null,
       filter: null,
       search: null,
@@ -21,52 +21,11 @@ class App extends Component {
   }
 
   addJob = () => {
-    this.setState({
-      showAdd: true,
-      editJob: null,
-    });
+    this.props.controlForm()
   };
 
   hiddenAdd = () => {
-    this.setState({
-      showAdd: false
-    });
-  };
-
-  // updateState = (itemTask) => {
-  //   this.state.listTask.forEach((value,key) => {
-  //     if(value.name === itemTask.name) {
-  //       let tasks = this.state.listTask;
-  //       tasks[key].status = !tasks[key].status;
-  //       this.setState({
-  //         listTask: tasks
-  //       });
-  //       localStorage.setItem('listTask',JSON.stringify(tasks));
-  //     }
-  //   });
-  // };
-
-  // deleteJob = (job) => {
-  //   this.state.listTask.forEach((value, key) => {
-  //     if(value.name === job.name) {
-  //       let tasks = this.state.listTask;
-  //       tasks.splice(key,1);
-  //       this.setState({
-  //         listTask: tasks
-  //       });
-  //       localStorage.setItem('listTask',JSON.stringify(tasks));
-  //     }
-  //   });
-  // };
-
-  updateJob = (job) => {
-    this.setState({
-      showAdd: true
-    });
-    this.setState({
-      editJob: job
-    });
-
+    this.props.closeForm();
   };
 
   onFilter = (name, value) => {
@@ -98,7 +57,8 @@ class App extends Component {
   };
 
   render() {
-    let {showAdd, filter, listTask, sort} = this.state;
+    let {filter, listTask, sort} = this.state;
+    let {showAdd} = this.props;
 
     if(this.state.filter) {
       if(filter.name === 'sort') {
@@ -162,4 +122,21 @@ class App extends Component {
   }
 }
 
-export default App;
+let mapStateToProps = (state) => {
+  return {
+    showAdd: state.formControl
+  }
+};
+
+let mapDispatchToProps = (dispatch, props) => {
+    return {
+      controlForm: () => {
+        dispatch(action.controlForm());
+      },
+      closeForm: () => {
+        dispatch(action.closeForm());
+      }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

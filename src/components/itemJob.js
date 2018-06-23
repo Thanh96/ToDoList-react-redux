@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as action from "../action";
 
 class ItemJob extends Component {
-  updateState = () => {
-    this.props.updateState(this.props.itemTask);
-  };
 
-  deleteJob = () => {
-    this.props.deleteJob(this.props.itemTask);
-  };
-
-  updateJob = () => {
-    this.props.updateJob(this.props.itemTask);
-  };
 
   render() {
     let {stt, itemTask} = this.props;
@@ -26,7 +18,7 @@ class ItemJob extends Component {
             </button>
           </td>
           <td>
-            <button type="button" onClick={this.updateJob}
+            <button type="button" onClick={this.props.openForm}
                     className="btn btn-warning">Sửa
             </button> &nbsp;
             <button type="button"
@@ -40,4 +32,16 @@ class ItemJob extends Component {
   }
 }
 
-export default ItemJob;
+let mapStateToProps = () => {
+
+};
+
+let mapDispatchToProps = (dispatch, props) => {
+  return {
+    openForm: () => {
+      dispatch(action.openForm());
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemJob);
