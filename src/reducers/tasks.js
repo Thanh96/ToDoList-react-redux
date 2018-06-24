@@ -17,7 +17,10 @@ let tasksReducer = (state = initialState, action) => {
       return [...state];
     case types.UPDATE_STATUS:
       let index = state.findIndex(item => item.id === action.id);
-      state[index].status = !state[index].status;
+      let newTask = {...state[index]};
+      newTask.status = !newTask.status;
+      state[index] = newTask;
+      localStorage.setItem("listTask", JSON.stringify(state));
       return [...state];
     default: return [...state];
   }

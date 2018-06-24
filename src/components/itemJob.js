@@ -12,13 +12,13 @@ class ItemJob extends Component {
           <td>{itemTask.name}</td>
           <td>
             <button type="button"
-                    // onClick={this.props.changeStatus(itemTask.id)}
+                    onClick={ () => this.props.changeStatus(itemTask.id)}
                     className={itemTask.status? 'btn-primary' : 'btn-danger'}>
               {itemTask.status? 'Đã xong': 'Chưa xong'}
             </button>
           </td>
           <td>
-            <button type="button" onClick={this.props.closeForm}
+            <button type="button" onClick={this.props.openForm}
                     className="btn btn-warning">Sửa
             </button> &nbsp;
             <button type="button"
