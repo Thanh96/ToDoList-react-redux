@@ -12,23 +12,25 @@ class AddNew extends Component {
     }
   }
 
-  componentWillMount() {
-    if(this.props.editJob) {
-      this.setState({
-        name: this.props.editJob.name,
-        status: this.props.editJob.status,
-      })
-    }
-  }
-
-  componentWillReceiveProps(newProps) {
-    if(newProps && newProps.editJob) {
-      this.setState({
-        name: newProps.editJob.name,
-        status: newProps.editJob.status
-      })
-    }
-  }
+  // componentWillMount() {
+  //   if(this.props.editJob) {
+  //     this.setState({
+  //       id: this.props.editJob.id,
+  //       name: this.props.editJob.name,
+  //       status: this.props.editJob.status,
+  //     })
+  //   }
+  // }
+  //
+  // componentWillReceiveProps(newProps) {
+  //   if(newProps && newProps.editJob) {
+  //     this.setState({
+  //       id: newProps.editJob.id,
+  //       name: newProps.editJob.name,
+  //       status: newProps.editJob.status
+  //     })
+  //   }
+  // }
 
 
   hiddenAdd = () => {
@@ -43,9 +45,18 @@ class AddNew extends Component {
     });
   };
 
+  itemId = () => {
+    return Math.floor((1 + Math.random())* 0x1000).toString().substring(3)
+  };
+
+  generateId = () => {
+    return this.itemId() + '-' + this.itemId() + '-' + this.itemId() + '-' + this.itemId();
+  };
+
   submitAdd = (e) => {
     e.preventDefault();
     let newJob = this.state;
+    newJob.id = this.generateId();
     newJob.status = newJob.status === 'true'? true: false;
     this.props.onAddTask(newJob);
     this.setState({
@@ -105,7 +116,7 @@ class AddNew extends Component {
 const mapStateToProps = state => {
   return {
 
-  }
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
