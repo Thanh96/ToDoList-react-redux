@@ -4,7 +4,6 @@ import * as action from "../action";
 
 class ItemJob extends Component {
 
-
   render() {
     let {stt, itemTask} = this.props;
     return (
@@ -12,17 +11,17 @@ class ItemJob extends Component {
           <th>{stt}</th>
           <td>{itemTask.name}</td>
           <td>
-            <button onClick={this.updateState}
+            <button type="button"
+                    // onClick={this.props.changeStatus(itemTask.id)}
                     className={itemTask.status? 'btn-primary' : 'btn-danger'}>
               {itemTask.status? 'Đã xong': 'Chưa xong'}
             </button>
           </td>
           <td>
-            <button type="button" onClick={this.props.openForm}
+            <button type="button" onClick={this.props.closeForm}
                     className="btn btn-warning">Sửa
             </button> &nbsp;
             <button type="button"
-                    onClick={this.deleteJob}
                     className="btn btn-danger">
               Xoá
             </button>
@@ -33,13 +32,18 @@ class ItemJob extends Component {
 }
 
 let mapStateToProps = () => {
+  return {
 
+  };
 };
 
 let mapDispatchToProps = (dispatch, props) => {
   return {
     openForm: () => {
       dispatch(action.openForm());
+    },
+    changeStatus: (id) => {
+      dispatch(action.updateStatus(id));
     }
   }
 };

@@ -31,7 +31,6 @@ class ListJob extends Component {
                 key={key}
                 updateJob = {this.props.updateJob}
                 deleteJob = {this.props.deleteJob}
-                updateState={this.props.updateState}
                 stt={key}/>
     });
 
