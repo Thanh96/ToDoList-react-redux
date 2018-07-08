@@ -29,7 +29,6 @@ class ListJob extends Component {
       return <ItemJob
                 itemTask={value}
                 key={key}
-                updateJob = {this.props.updateJob}
                 deleteJob = {this.props.deleteJob}
                 stt={key}/>
     });
