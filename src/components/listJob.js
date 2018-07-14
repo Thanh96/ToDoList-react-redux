@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import ItemJob from './itemJob';
 
+import * as action from '../action/index';
+
 class ListJob extends Component {
 
   constructor() {
@@ -16,14 +18,30 @@ class ListJob extends Component {
   changeForm = (e) => {
     let value = e.target.value;
     let name = e.target.name;
-    this.props.onFilter(name, value);
     this.setState({
       [name]: value
     });
+    this.props.onFilterTable({[name]: value});
   };
 
   render() {
     let listTask = this.props.listTask;
+
+    if (this.props.filterTable) {
+      let filterTable = this.props.filterTable;
+      if (filterTable.sort !== 1) {
+        if(filterTable.sort === "2") {
+          listTask = listTask.filter(item => item.status === true);
+        }
+        if(filterTable.sort === "3") {
+          listTask = listTask.filter(item => item.status === false);
+        }
+      }
+      if (filterTable.text) {
+        listTask = listTask
+         .filter(item => item.name.toLowerCase().indexOf(filterTable.text) !== -1);
+      }
+    }
 
     let itemTask = listTask.map((value,key) => {
       return <ItemJob
@@ -75,8 +93,17 @@ class ListJob extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    listTask: state.task
+    listTask: state.task,
+    filterTable: state.filterTable
   }
 };
 
-export default connect(mapStateToProps, null) (ListJob);
+const mapDispatchToProps = (dispatch, state) => {
+  return {
+    onFilterTable: (filter) => {
+      dispatch(action.filterTable(filter))
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps) (ListJob);

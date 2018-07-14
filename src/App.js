@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import * as action from './action/index';
 
 import AddNew from './components/addNew';
@@ -13,10 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editJob: null,
-      filter: null,
       search: null,
-      sort: null,
     };
   }
 
@@ -26,25 +22,6 @@ class App extends Component {
 
   hiddenAdd = () => {
     this.props.closeForm();
-  };
-
-  onFilter = (name, value) => {
-    value = name === 'sort'? parseInt(value, 10): value;
-    this.setState({
-      filter : {
-        name: name,
-        value: value
-      }
-    });
-  };
-
-  onSort = (name, value) => {
-    this.setState({
-      sort : {
-        name: name,
-        value: value
-      }
-    });
   };
 
   searchJob = (textSearch) => {
@@ -57,40 +34,27 @@ class App extends Component {
   };
 
   render() {
-    let {filter, listTask, sort} = this.state;
     let {showAdd} = this.props;
 
-    if(this.state.filter) {
-      if(filter.name === 'sort') {
-        if(filter.value === 2) {
-          listTask = _.filter(listTask,(task) => task.status === true);
-        }
-        if(filter.value === 3) {
-          listTask = listTask.filter(item => item.status === false);
-        }
-      } else {
-        listTask = listTask.filter(item => item.name.toLowerCase().indexOf(filter.value.toLowerCase()) !== -1);
-      }
-    }
 
-    if(sort) {
-      if(sort.name === 'sort') {
-        listTask.sort((a, b) => {
-          if(a.name > b.name) return sort.value;
-          else if(a.name < b.name) return -sort.value;
-          else return 0;
-        });
-      } else {
-        listTask.sort((a, b) => {
-          if(b.status > a.status) return sort.value;
-          else if(b.status < a.status) return -sort.value;
-          else return 0;
-        });
-      }
-    }
+
+    // if(sort) {
+    //   if(sort.name === 'sort') {
+    //     listTask.sort((a, b) => {
+    //       if(a.name > b.name) return sort.value;
+    //       else if(a.name < b.name) return -sort.value;
+    //       else return 0;
+    //     });
+    //   } else {
+    //     listTask.sort((a, b) => {
+    //       if(b.status > a.status) return sort.value;
+    //       else if(b.status < a.status) return -sort.value;
+    //       else return 0;
+    //     });
+    //   }
+    // }
 
     let showForm = showAdd? <AddNew
-        editJob = {this.state.editJob}
         hiddenAdd={this.hiddenAdd}/>: "";
     return (
       <div className="App container">
@@ -110,7 +74,6 @@ class App extends Component {
               <Control search = {this.searchJob} sort = {this.onSort} />
             </div>
             <ListJob
-                onFilter = {this.onFilter}
                 deleteJob = {this.deleteJob}/>
           </div>
         </div>
