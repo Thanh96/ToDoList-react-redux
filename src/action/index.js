@@ -31,10 +31,10 @@ export const closeForm = () => {
   }
 };
 
-export const updateTask = (id) => {
+export const updateTask = (task) => {
   return {
     type: types.UPDATE_TASK,
-    id
+    task
   }
 };
 
@@ -43,4 +43,11 @@ export const updateStatus = (id) => {
     type: types.UPDATE_STATUS,
     id
   }
+};
+
+export const itemSelect = (task) => {
+  return {
+    type: types.ITEM_SELECT,
+    task
+  };
 };

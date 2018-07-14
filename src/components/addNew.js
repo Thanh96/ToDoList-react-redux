@@ -7,35 +7,43 @@ class AddNew extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       name: "",
       status: false
+    };
+  }
+
+  clear() {
+    this.setState({
+      id: "",
+      name: "",
+      status: false
+    });
+  }
+
+  componentWillMount() {
+    if(this.props.itemSelect) {
+      this.setState({
+        id: this.props.itemSelect.id,
+        name: this.props.itemSelect.name,
+        status: this.props.itemSelect.status,
+      })
+    } else {
+      this.clear();
     }
   }
 
-  // componentWillMount() {
-  //   if(this.props.editJob) {
-  //     this.setState({
-  //       id: this.props.editJob.id,
-  //       name: this.props.editJob.name,
-  //       status: this.props.editJob.status,
-  //     })
-  //   }
-  // }
-  //
-  // componentWillReceiveProps(newProps) {
-  //   if(newProps && newProps.editJob) {
-  //     this.setState({
-  //       id: newProps.editJob.id,
-  //       name: newProps.editJob.name,
-  //       status: newProps.editJob.status
-  //     })
-  //   }
-  // }
-
-
-  hiddenAdd = () => {
-    this.props.hiddenAdd();
-  };
+  componentWillReceiveProps(newProps) {
+    if(newProps && newProps.itemSelect) {
+      this.setState({
+        id: newProps.itemSelect.id,
+        name: newProps.itemSelect.name,
+        status: newProps.itemSelect.status
+      })
+    } else {
+      this.clear();
+    }
+  }
 
   changeForm = (event) => {
     let name = event.target.name;
@@ -53,30 +61,30 @@ class AddNew extends Component {
     return this.itemId() + '-' + this.itemId() + '-' + this.itemId() + '-' + this.itemId();
   };
 
-  submitAdd = (e) => {
+  submitForm = (e) => {
     e.preventDefault();
     let newJob = this.state;
-    newJob.id = this.generateId();
     newJob.status = newJob.status === 'true'? true: false;
-    this.props.onAddTask(newJob);
-    this.setState({
-      name: ""
-    });
-    this.hiddenAdd();
+    if (this.props.itemSelect) {
+      this.props.onUpdateTask(newJob);
+    } else {
+      newJob.id = this.generateId();
+      this.props.onAddTask(newJob);
+    }
+    this.props.onCloseForm();
   };
 
   render() {
     return (
         <div className="addNew">
-
           <div className="card">
             <div className="card-body">
               <div className="card-title">
-                {this.props.editJob? 'Cập Nhập Công Việc' : 'Thêm Công Việc'}
-                <span onClick={this.hiddenAdd}>X</span>
+                {this.props.itemSelect? 'Cập Nhập Công Việc' : 'Thêm Công Việc'}
+                <span onClick={this.props.onCloseForm}>X</span>
               </div>
               <div className="card-text">
-                <form onSubmit={this.submitAdd}>
+                <form onSubmit={this.submitForm}>
                   <div className="form-group">
                     <label >Tên:</label>
                     <input type="type"
@@ -98,7 +106,7 @@ class AddNew extends Component {
                     </select>
                   </div>
                   <button type="submit" className="btn btn-primary">
-                    {this.props.editJob? "Update" : "Add"}
+                    {this.props.itemSelect? "Update" : "Add"}
                   </button> &nbsp;
                   <button type="reset" className="btn btn-default">Làm mới</button>
                 </form>
@@ -115,7 +123,7 @@ class AddNew extends Component {
 
 const mapStateToProps = state => {
   return {
-
+    itemSelect: state.itemSelect
   };
 };
 
@@ -123,6 +131,12 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddTask: (task) => {
       dispatch(action.addTask(task));
+    },
+    onCloseForm: () => {
+      dispatch(action.closeForm());
+    },
+    onUpdateTask: (task) => {
+      dispatch(action.updateTask(task));
     }
   }
 };

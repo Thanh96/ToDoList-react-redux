@@ -111,8 +111,6 @@ class App extends Component {
             </div>
             <ListJob
                 onFilter = {this.onFilter}
-                selectText = {this.selectText}
-                updateJob = {this.updateJob}
                 deleteJob = {this.deleteJob}/>
           </div>
         </div>

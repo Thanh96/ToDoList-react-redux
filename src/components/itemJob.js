@@ -4,6 +4,11 @@ import * as action from "../action";
 
 class ItemJob extends Component {
 
+  editTask = () => {
+    this.props.openForm();
+    this.props.itemSelect(this.props.itemTask);
+  };
+
   render() {
     let {stt, itemTask} = this.props;
     return (
@@ -18,7 +23,7 @@ class ItemJob extends Component {
             </button>
           </td>
           <td>
-            <button type="button" onClick={this.props.openForm}
+            <button type="button" onClick={() => this.editTask()}
                     className="btn btn-warning">Sửa
             </button> &nbsp;
             <button type="button"
@@ -44,6 +49,9 @@ let mapDispatchToProps = (dispatch, props) => {
     },
     changeStatus: (id) => {
       dispatch(action.updateStatus(id));
+    },
+    itemSelect: (task) => {
+      dispatch(action.itemSelect(task));
     }
   }
 };
