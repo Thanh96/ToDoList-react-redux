@@ -9,6 +9,10 @@ class ItemJob extends Component {
     this.props.itemSelect(this.props.itemTask);
   };
 
+  deleteTask = (id) => {
+    this.props.deleteTask(id)
+  };
+
   render() {
     let {stt, itemTask} = this.props;
     return (
@@ -27,6 +31,7 @@ class ItemJob extends Component {
                     className="btn btn-warning">Sửa
             </button> &nbsp;
             <button type="button"
+                    onClick={() => this.deleteTask(itemTask.id)}
                     className="btn btn-danger">
               Xoá
             </button>
@@ -52,6 +57,9 @@ let mapDispatchToProps = (dispatch, props) => {
     },
     itemSelect: (task) => {
       dispatch(action.itemSelect(task));
+    },
+    deleteTask: (id) => {
+      dispatch(action.deleteTask(id));
     }
   }
 };
