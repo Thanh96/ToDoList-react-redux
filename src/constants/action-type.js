@@ -8,3 +8,4 @@ export const UPDATE_STATUS = "UPDATE_STATUS";
 export const ITEM_SELECT = "ITEM_SELECT";
 export const  FILTER_TABLE = "FILTER_TABLE";
 export const DELETE_TASK = "DELETE_TASK";
+export const SORT_TABLE = "SORT_TABLE";

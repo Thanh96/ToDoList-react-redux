@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-
+import * as action from '../action/index';
 class Search extends Component {
   constructor(props) {
       super(props);
@@ -14,12 +15,12 @@ class Search extends Component {
     let value = event.target.value;
     this.setState({
       [name]: value
-    })
+    });
   };
 
   onSearch = (e) => {
     e.preventDefault();
-    this.props.search(this.state.textSearch);
+    this.props.onFilterTable(this.state);
   };
 
   render() {
@@ -40,4 +41,18 @@ class Search extends Component {
   }
 }
 
-export default Search;
+const mapStateToProps = () => {
+  return {
+
+  }
+};
+
+const mapDispatchToProps = (dispatch, state) => {
+  return {
+    onFilterTable : (filter) => {
+      dispatch(action.filterTable(filter))
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps) (Search);

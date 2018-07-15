@@ -65,3 +65,10 @@ export const deleteTask = (id) => {
     id
   }
 };
+
+export const sortTable = (sort) => {
+  return {
+    type: types.SORT_TABLE,
+    sort
+  }
+};
