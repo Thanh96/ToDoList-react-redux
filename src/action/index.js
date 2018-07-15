@@ -58,3 +58,10 @@ export const filterTable = (filter) => {
     filter
   }
 };
+
+export const deleteTask = (id) => {
+  return {
+    type: types.DELETE_TASK,
+    id
+  }
+};

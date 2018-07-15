@@ -35,6 +35,13 @@ let tasksReducer = (state = initialState, action) => {
       return state;
       //update task
 
+    case types.DELETE_TASK:
+      let indexDelete = state.findIndex(item => item.id  === action.id);
+      state.splice(indexDelete, 1);
+      console.log(state);
+      localStorage.setItem("listTask", JSON.stringify(state));
+      return [...state];
+
     default: return [...state];
   }
 };
