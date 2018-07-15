@@ -26,9 +26,9 @@ class Sort extends Component {
               Sắp xếp
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li onClick={ () => this.selectSort('sort', 1)}
+              <li onClick={ () => this.selectSort('name', 1)}
                   className="dropdown-item">A - Z</li>
-              <li onClick={ () => this.selectSort('sort', -1)}
+              <li onClick={ () => this.selectSort('name', -1)}
                   className="dropdown-item">Z - A</li>
               <li onClick={ () => this.selectSort('status', 1)}
                   className="dropdown-item">Đã xong</li>

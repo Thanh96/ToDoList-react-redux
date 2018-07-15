@@ -41,6 +41,10 @@ class ListJob extends Component {
         listTask = listTask
          .filter(item => item.name.toLowerCase().indexOf(filterTable.text) !== -1);
       }
+      if (filterTable.search) {
+        listTask = listTask
+            .filter(item => item.name.toLowerCase().indexOf(filterTable.search) !== -1);
+      }
     }
 
     let itemTask = listTask.map((value,key) => {
