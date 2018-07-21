@@ -24,35 +24,8 @@ class App extends Component {
     this.props.closeForm();
   };
 
-  searchJob = (textSearch) => {
-    this.setState({
-      filter: {
-        name: 'selectText',
-        value: textSearch
-      }
-    })
-  };
-
   render() {
     let {showAdd} = this.props;
-
-
-
-    // if(sort) {
-    //   if(sort.name === 'sort') {
-    //     listTask.sort((a, b) => {
-    //       if(a.name > b.name) return sort.value;
-    //       else if(a.name < b.name) return -sort.value;
-    //       else return 0;
-    //     });
-    //   } else {
-    //     listTask.sort((a, b) => {
-    //       if(b.status > a.status) return sort.value;
-    //       else if(b.status < a.status) return -sort.value;
-    //       else return 0;
-    //     });
-    //   }
-    // }
 
     let showForm = showAdd? <AddNew
         hiddenAdd={this.hiddenAdd}/>: "";
@@ -71,10 +44,9 @@ class App extends Component {
               Thêm công việc
             </button>
             <div className="control">
-              <Control search = {this.searchJob} sort = {this.onSort} />
+              <Control />
             </div>
-            <ListJob
-                deleteJob = {this.deleteJob}/>
+            <ListJob />
           </div>
         </div>
       </div>

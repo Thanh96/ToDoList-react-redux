@@ -29,14 +29,6 @@ class ListJob extends Component {
 
     if (this.props.filterTable) {
       let filterTable = this.props.filterTable;
-      if (filterTable.sort !== 1) {
-        if(filterTable.sort === "2") {
-          listTask = listTask.filter(item => item.status === true);
-        }
-        if(filterTable.sort === "3") {
-          listTask = listTask.filter(item => item.status === false);
-        }
-      }
       if (filterTable.text) {
         listTask = listTask
          .filter(item => item.name.toLowerCase().indexOf(filterTable.text) !== -1);
@@ -45,13 +37,40 @@ class ListJob extends Component {
         listTask = listTask
             .filter(item => item.name.toLowerCase().indexOf(filterTable.search) !== -1);
       }
+      if(filterTable.sort) {
+        if(filterTable.sort === '2') {
+          listTask = listTask
+              .filter(item => item.status === true);
+        }
+        if(filterTable.sort === '3') {
+          listTask = listTask
+              .filter(item => item.status === false);
+        }
+      }
+    }
+
+    if (this.props.sortTable) {
+      let sort = this.props.sortTable;
+      if (sort.name) {
+        listTask.sort((a, b) => {
+          if (a.name > b.name) return sort.name;
+          else if (a.name < b.name) return -sort.name;
+          else return 0;
+        });
+      }
+      if (sort.status) {
+        listTask.sort((a, b) => {
+          if (b.status > a.status) return sort.status;
+          else if (b.status < a.status) return -sort.status;
+          else return 0;
+        });
+      }
     }
 
     let itemTask = listTask.map((value,key) => {
       return <ItemJob
                 itemTask={value}
                 key={key}
-                deleteJob = {this.props.deleteJob}
                 stt={key}/>
     });
 
@@ -59,12 +78,12 @@ class ListJob extends Component {
         <div className="listJob">
           <table className="table table-bordered">
             <thead>
-            <tr>
-              <th scope="col">STT</th>
-              <th scope="col">Tên</th>
-              <th scope="col">Trạng Thái</th>
-              <th scope="col">Hành động</th>
-            </tr>
+              <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Trạng Thái</th>
+                <th scope="col">Hành động</th>
+              </tr>
             </thead>
             <tbody>
               <tr>
@@ -98,7 +117,8 @@ class ListJob extends Component {
 const mapStateToProps = (state) => {
   return {
     listTask: state.task,
-    filterTable: state.filterTable
+    filterTable: state.filterTable,
+    sortTable: state.sortTable
   }
 };
 
