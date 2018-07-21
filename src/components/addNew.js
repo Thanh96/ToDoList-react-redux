@@ -54,7 +54,7 @@ class AddNew extends Component {
   };
 
   itemId = () => {
-    return Math.floor((1 + Math.random())* 0x1000).toString().substring(3)
+    return Math.floor((1 + Math.random())* 0x1000).toString().substring(3);
   };
 
   generateId = () => {

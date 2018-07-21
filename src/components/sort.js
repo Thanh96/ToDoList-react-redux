@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+import * as actions from '../action/index';
 
 class Sort extends Component {
   constructor(props) {
@@ -15,7 +17,8 @@ class Sort extends Component {
       name: name,
       value: value
     });
-    this.props.sort(name,value);
+    this.props.sortTable({[name]: value});
+
   };
 
   render() {
@@ -26,9 +29,9 @@ class Sort extends Component {
               Sắp xếp
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li onClick={ () => this.selectSort('sort', 1)}
+              <li onClick={ () => this.selectSort('name', 1)}
                   className="dropdown-item">A - Z</li>
-              <li onClick={ () => this.selectSort('sort', -1)}
+              <li onClick={ () => this.selectSort('name', -1)}
                   className="dropdown-item">Z - A</li>
               <li onClick={ () => this.selectSort('status', 1)}
                   className="dropdown-item">Đã xong</li>
@@ -41,4 +44,19 @@ class Sort extends Component {
   }
 }
 
-export default Sort;
+const mapStateToProps = () => {
+  return {
+
+  }
+};
+
+const mapDispatchToProps = (dispatch, state) => {
+  return {
+      sortTable : (sort) => {
+        dispatch(actions.sortTable(sort))
+      }
+  }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sort);

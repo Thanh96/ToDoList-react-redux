@@ -51,3 +51,24 @@ export const itemSelect = (task) => {
     task
   };
 };
+
+export const filterTable = (filter) => {
+  return {
+    type: types.FILTER_TABLE,
+    filter
+  }
+};
+
+export const deleteTask = (id) => {
+  return {
+    type: types.DELETE_TASK,
+    id
+  }
+};
+
+export const sortTable = (sort) => {
+  return {
+    type: types.SORT_TABLE,
+    sort
+  }
+};
